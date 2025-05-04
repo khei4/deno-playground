@@ -3,11 +3,11 @@ import { createBot, createDesiredPropertiesObject, Intents } from "discordeno";
 import * as log from "@std/log";
 
 await load({ export: true });
-Deno.cron("keep alive", "*/1 * * * *", () => {
-    log.info("Bot is alive. cid: " ,Deno.env.get("CHANNEL_ID")!);
-    bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
-            content: "I'm alive",
-    });
+Deno.cron("keep alive", "*/3 * * * *", () => {
+  log.info("Bot is alive. cid: ", Deno.env.get("CHANNEL_ID")!);
+  bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
+    content: "I'm alive",
+  });
 });
 
 // https://discordeno.js.org/docs/desired-properties
@@ -34,12 +34,16 @@ interface BotDesiredProperties extends Required<typeof desiredProperties> {}
 log.setup({
   handlers: {
     default: new log.ConsoleHandler("INFO", {
-        formatter:rec => JSON.stringify({ts: rec.datetime, level: rec.levelName, data: rec.msg}),
+      formatter: (rec) =>
+        JSON.stringify({
+          ts: rec.datetime,
+          level: rec.levelName,
+          data: rec.msg,
+        }),
       useColors: true,
     }),
   },
 });
-
 
 const bot = createBot({
   token: Deno.env.get("DISCORD_TOKEN")!,

@@ -1,11 +1,11 @@
 {
-    "tasks": {
-        "start": "deno run -A --unstable-cron --watch ./src/main.ts"
-    },
-    "imports": {
-        "@std/log": "jsr:@std/log@^0.224.14",
-        "discordeno": "npm:discordeno@^21.0.0"
-    },
-    // FIXME: deno deploy failed to read deno.lock
-    "lock": false
+  "tasks": {
+    "start": "deno run -A --unstable-cron --watch ./src/main.ts"
+  },
+  "imports": {
+    "@std/log": "jsr:@std/log@^0.224.14",
+    "discordeno": "npm:discordeno@^21.0.0"
+  },
+  // FIXME: deno deploy failed to read deno.lock
+  "lock": false
 }

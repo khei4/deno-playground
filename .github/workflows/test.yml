@@ -1,0 +1,33 @@
+name: Deno Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.3.1
+
+      - name: Run Deno test
+        run: deno test --allow-all --unstable
+
+      # Optional: lint check
+      - name: Run Deno lint
+        run: deno lint
+
+      # Optional: format check
+      - name: Check formatting
+        run: deno fmt --check
