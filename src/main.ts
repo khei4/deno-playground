@@ -38,16 +38,11 @@ const bot = createBot({
   desiredProperties: desiredProperties as BotDesiredProperties,
   intents: Intents.Guilds | Intents.GuildMessages | Intents.MessageContent,
   events: {
-    ready: ({ shardId, user, sessionId, applicationId }) => {
+    ready: ({ shardId }) => {
       log.info(`Shard ${shardId} ready`);
-      log.info({ user });
-      log.info({ sessionId });
-      log.info({ applicationId });
     },
     async messageCreate(message) {
       if (message.author.id === bot.id) return;
-      await log.info({ message });
-      await log.info( bot.id );
       const m = await bot.helpers.sendMessage(message.channelId, {
         content: "Hello world. This is test message from Discordeno.",
       });
@@ -57,3 +52,7 @@ const bot = createBot({
 });
 
 await bot.start();
+
+Deno.cron("keep alive", "*/3 * * * *", () => {
+  log.info("Bot is alive");
+});

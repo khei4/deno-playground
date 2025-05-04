@@ -1,6 +1,6 @@
 {
     "tasks": {
-        "start": "deno run -A --watch ./src/main.ts"
+        "start": "deno run -A --unstable-cron --watch ./src/main.ts"
     },
     "imports": {
         "@std/log": "jsr:@std/log@^0.224.14",
