@@ -1,6 +1,15 @@
 import { load } from "https://deno.land/std@0.212.0/dotenv/mod.ts";
 import { createBot, createDesiredPropertiesObject, Intents } from "discordeno";
 import * as log from "@std/log";
+
+await load({ export: true });
+Deno.cron("keep alive", "*/1 * * * *", () => {
+    log.info("Bot is alive. cid: " ,Deno.env.get("CHANNEL_ID")!);
+    bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
+            content: "I'm alive",
+    });
+});
+
 // https://discordeno.js.org/docs/desired-properties
 const desiredProperties = createDesiredPropertiesObject({
   interaction: {
@@ -30,7 +39,7 @@ log.setup({
     }),
   },
 });
-await load({ export: true });
+
 
 const bot = createBot({
   token: Deno.env.get("DISCORD_TOKEN")!,
@@ -43,6 +52,7 @@ const bot = createBot({
     },
     async messageCreate(message) {
       if (message.author.id === bot.id) return;
+      await log.info(message.channelId);
       const m = await bot.helpers.sendMessage(message.channelId, {
         content: "Hello world. This is test message from Discordeno.",
       });
@@ -52,7 +62,3 @@ const bot = createBot({
 });
 
 await bot.start();
-
-Deno.cron("keep alive", "*/3 * * * *", () => {
-  log.info("Bot is alive");
-});
