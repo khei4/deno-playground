@@ -56,6 +56,7 @@ const bot = createBot({
     },
     async messageCreate(message) {
       if (message.author.id === bot.id) return;
+      if (message.channelId !== BigInt(Deno.env.get("CHANNEL_ID")!)) return;
       await log.info(message.channelId);
       const m = await bot.helpers.sendMessage(message.channelId, {
         content: "Hello world. This is test message from Discordeno.",
