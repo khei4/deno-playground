@@ -5,9 +5,9 @@ import * as log from "@std/log";
 await load({ export: true });
 Deno.cron("keep alive", "*/3 * * * *", () => {
   log.info("Bot is alive. cid: ", Deno.env.get("CHANNEL_ID")!);
-  bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
-    content: "I'm alive",
-  });
+//   bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
+//     content: "I'm alive",
+//   });
 });
 
 // https://discordeno.js.org/docs/desired-properties
