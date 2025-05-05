@@ -3,9 +3,10 @@ import { createBot, createDesiredPropertiesObject, Intents } from "discordeno";
 import * as log from "@std/log";
 
 await load({ export: true });
+const CHANNEL_ID: string = Deno.env.get("CHANNEL_ID")!;
 Deno.cron("keep alive", "*/3 * * * *", () => {
-  log.info("Bot is alive. cid: ", Deno.env.get("CHANNEL_ID")!);
-//   bot.helpers.sendMessage(Deno.env.get("CHANNEL_ID")!, {
+  log.info("Bot is alive. cid: ", CHANNEL_ID!);
+//   bot.helpers.sendMessage(CHANNEL_ID!, {
 //     content: "I'm alive",
 //   });
 });
@@ -56,9 +57,9 @@ const bot = createBot({
     },
     async messageCreate(message) {
       if (message.author.id === bot.id) return;
-      if (message.channelId !== BigInt(Deno.env.get("CHANNEL_ID")!)) return;
+      if (message.channelId !== BigInt(CHANNEL_ID!)) return;
       await log.info(message.channelId);
-      const m = await bot.helpers.sendMessage(message.channelId, {
+      const m = await bot.helpers.sendMessage(CHANNEL_ID!, {
         content: "Hello world. This is test message from Discordeno.",
       });
       await log.info({ m });
