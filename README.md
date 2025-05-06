@@ -1,7 +1,7 @@
 # deno-playground
 
 ```bash
-deno task dev
+deno task start
 ```
 
 To test:
